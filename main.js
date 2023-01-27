@@ -1,29 +1,45 @@
-//DECLAROE  INICIALIZO MIS ELEMENTOS DEL DOM
+
 const userEmail = document.querySelector('.navbar-email')
 const desktopMenu = document.querySelector('.desktop-menu')
 const hamburgerMenu = document.querySelector('.hamburger-menu')
 const mobileMenu = document.querySelector('.mobile-menu')
 const shoppingCartIcon = document.querySelector('.navbar-shopping-cart')
-const aside =document.querySelector('.product-detail')
+const shoppingCartContainer =document.querySelector('#shopping-cart-container')
+const productDetailContainer =document.querySelector('#product-detail-container')
 const cardsContainer= document.querySelector('.cards-container')
-const productList=[]
-const arrDomElements=[desktopMenu,mobileMenu,aside]
+const productDetailCloseIcon= document.querySelector('.product-detail-close')
 
-// EVENT LISTENERS
+
+const productList=[]
+const arrDomElements=[desktopMenu,mobileMenu,shoppingCartContainer,productDetailContainer]
+
+
 userEmail.addEventListener('click', toogleInactiveClass.bind(this,desktopMenu))
 hamburgerMenu.addEventListener('click', toogleInactiveClass.bind(this,mobileMenu))
-shoppingCartIcon.addEventListener('click', toogleInactiveClass.bind(this,aside))
+shoppingCartIcon.addEventListener('click', toogleInactiveClass.bind(this,shoppingCartContainer))
+productDetailCloseIcon.addEventListener('click', closeProductDetail)
 
-// FUNCIONES A EJECUTAR
-function toogleInactiveClass(element) {
 
-    for (item of arrDomElements){
+
+function closeDomElements(element,arr){
+    for (item of arr){
         if(item!==element){
             item.classList.add('inactive')
         }
     }
+}
+function toogleInactiveClass(element) {
+   closeDomElements(element,arrDomElements)
     element.classList.toggle('inactive')
 }
+function closeProductDetail(){
+    productDetailContainer.classList.add('inactive')
+}
+function openProductDetail(){
+    closeDomElements(productDetailContainer,arrDomElements)
+    productDetailContainer.classList.remove('inactive')
+}
+
 
 productList.push(
     {
@@ -88,6 +104,7 @@ for (product of list){
     productInfo.append(productInfoDiv,productInfoFigure)
     productCard.append(productImg,productInfo)
     cardsContainer.append(productCard)
+    productImg.addEventListener('click', openProductDetail)
 }
 
 }
